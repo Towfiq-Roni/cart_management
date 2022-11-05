@@ -17,8 +17,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    const title = 'Flutter Demo';
+    const title = 'Cart Demo';
     return MaterialApp(
+        debugShowCheckedModeBanner:false,
         title: title,
         home: Scaffold(
             appBar: AppBar(

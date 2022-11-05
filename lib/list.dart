@@ -1,3 +1,4 @@
+import 'package:cart_management/cart.dart';
 import 'package:flutter/material.dart';
 
 // class Cart extends StatefulWidget {
@@ -16,12 +17,9 @@ import 'package:flutter/material.dart';
 //   }
 // }
 
-
-
 abstract class ListItem {
   Widget buildTitle(BuildContext context);
-
-  // Widget buildSubtitle(BuildContext context);
+// Widget buildSubtitle(BuildContext context);
 }
 
 class HeadingItem implements ListItem {
@@ -32,22 +30,44 @@ class HeadingItem implements ListItem {
 
   @override
   Widget buildTitle(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          child:
-          Text(
-            '{$product.$price}',
-            style: Theme.of(context).textTheme.headline5,
+    return Container(
+      child: Row(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Column(
+            children: [
+              Text(
+                '$product.$price',
+                style: Theme.of(context).textTheme.headline5,
+              ),
+            ],
           ),
-
-        ),
-      ],
+          // SizedBox(width: 100),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const CartPage(),
+                        settings: RouteSettings(
+                          arguments: HeadingItem(product, price),
+                        )
+                        ));
+                  },
+                  icon: const Icon(Icons.add),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
-
-  // @override
-  // Widget buildSubtitle(BuildContext context) => const SizedBox.shrink();
+// @override
+// Widget buildSubtitle(BuildContext context) => const SizedBox.shrink();
 }
 
 // class MessageItem implements ListItem {
@@ -62,5 +82,3 @@ class HeadingItem implements ListItem {
 //   @override
 //   Widget buildSubtitle(BuildContext context) => Text(body);
 // }
-
-
