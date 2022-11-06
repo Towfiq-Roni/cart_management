@@ -1,5 +1,9 @@
+// import 'dart:js_util';
+
 import 'package:cart_management/cart.dart';
+import 'package:cart_management/cart_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 // class Cart extends StatefulWidget {
 //   const Cart({Key? key}) : super(key: key);
@@ -43,25 +47,32 @@ class HeadingItem implements ListItem {
             ],
           ),
           // SizedBox(width: 100),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const CartPage(),
-                        settings: RouteSettings(
-                          arguments: HeadingItem(product, price),
-                        )
-                        ));
-                  },
-                  icon: const Icon(Icons.add),
-                ),
-              ],
-            ),
-          )
+          Builder(
+            builder: (context) {
+              return Align(
+                    alignment: Alignment.centerRight,
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            context.read<CartProvider>()
+                                .addToList(product, price);
+                            print('$CartProvider');
+                            // Navigator.push(context,
+                            //     MaterialPageRoute(builder: (context) => const CartPage(),
+                                    // settings: RouteSettings(
+                                    //   arguments: HeadingItem(product, price),
+                                    // )
+                                // ))
+                          },
+                          icon: const Icon(Icons.add),
+                        ),
+                      ],
+                    ),
+                  );
+            }
+          ),
         ],
       ),
     );
