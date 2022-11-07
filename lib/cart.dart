@@ -1,5 +1,4 @@
 import 'package:cart_management/cart_provider.dart';
-import 'package:cart_management/list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,14 +24,10 @@ import 'package:provider/provider.dart';
 class CartPage extends StatelessWidget {
   // final List<ListItem> items;
 
-  const CartPage({Key? key,
+  const CartPage({
+    Key? key,
     // required this.items
   }) : super(key: key);
-
-  // final List<HeadingItem> newList = makanan
-  //     .where((item) => item.qty > 0)
-  //     .map((item) => HeadingItem(namaMakanan: item.namaMenu, ...))
-  //     .toList();
 
   @override
   Widget build(BuildContext context) {
@@ -41,16 +36,13 @@ class CartPage extends StatelessWidget {
     // final headingItem =
     // ModalRoute.of(context)!.settings.arguments as HeadingItem;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Cart Page Demo'),
-      ),
+        appBar: AppBar(
+          title: const Text('Cart Page Demo'),
+        ),
         body: Column(
-      children: [
-        // Text('Product List'),
-        Expanded(
-          child: Container(
-              // height: 1000,
-              // width: 500,
+          children: <Widget>[
+            // Text('Product List'),
+            Expanded(
               child: ListenableProvider.value(
                 value: cart,
                 child: ListView.builder(
@@ -61,30 +53,37 @@ class CartPage extends StatelessWidget {
                       //     // Text('$HeadingItem'),
                       //   title: Text(<HeadingItem>[]),
                       // ) ;
-                      return Container(
-                        child: Column(
+                      return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ListenableProvider.value(
-                              value: cart,
-                                child: Text(cart.getList[index].product.toString())),
-                            Text('Price = ${cart.getList[index].price}'),
-                        ]),
-                      );
+                                value: cart,
+                                child: Text(
+                                    cart.getList[index].product.toString())),
+                            Text('Price: ${cart.getList[index].price}'),
+                            Text('Quantity: ${cart.getList[index].quantity}'),
+                            ElevatedButton(
+                                onPressed: () {
+                                  context
+                                      .read<CartProvider>()
+                                      .deleteFromList(index);
+                                },
+                                child: const Text('Remove from Cart'))
+                          ]);
                       //   ListTile(
                       //
                       //   // title: item.buildTitle(context),
                       //   // subtitle: item.buildSubtitle(context),
                       // );
                     }),
-              )),
-
-        ),
-        ListenableProvider.value(
-          value: cart,
-          child: Text('Total ${cart.getTotal}'),
-        ),
-      ],
-    )
+              ),
+            ),
+            ListenableProvider.value(
+              value: cart,
+              child: Text('Total ${cart.getTotal}'),
+            ),
+          ],
+        )
 
         //     body: ListView(
         //       children: [

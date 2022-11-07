@@ -1,6 +1,3 @@
-// import 'dart:js_util';
-
-import 'package:cart_management/cart.dart';
 import 'package:cart_management/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,62 +26,61 @@ abstract class ListItem {
 class HeadingItem implements ListItem {
   final String product;
   final int price;
+  final int id;
+  int quantity;
 
-  HeadingItem(this.product, this.price);
+  HeadingItem(this.product, this.price, this.id, this.quantity);
 
   @override
   Widget buildTitle(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Column(
-            children: [
-              Text(
-                '$product',
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              Text(
-                '$price',
-
-              )
-            ],
-          ),
-          // SizedBox(width: 100),
-          Builder(
-            builder: (context) {
-              return Align(
-                    alignment: Alignment.centerRight,
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            context.read<CartProvider>()
-                                .addToList(product, price);
-                            print('$CartProvider initialized');
-                            // Navigator.push(context,
-                            //     MaterialPageRoute(builder: (context) => const CartPage(),
-                                    // settings: RouteSettings(
-                                    //   arguments: HeadingItem(product, price),
-                                    // )
-                                // ))
-                          },
-                          icon: const Icon(Icons.add),
-                        ),
-                      ],
-                    ),
-                  );
-            }
-          ),
-        ],
-      ),
+    final cart = context.watch<CartProvider>();
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Column(
+          children: [
+            Text(
+              product,
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            Text(
+              'Price: $price',
+            )
+          ],
+        ),
+        // SizedBox(width: 100),
+        Builder(builder: (context) {
+          return Align(
+            alignment: Alignment.centerRight,
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    context.read<CartProvider>().addToList(product, price, id);
+                    print('$CartProvider initialized');
+                    // if(cart.getList==cart.getList){
+                    //   Text('Quantity: ${cart.getQuantity}');
+                    // }
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => const CartPage(),
+                    // settings: RouteSettings(
+                    //   arguments: HeadingItem(product, price),
+                    // )
+                    // ))
+                  },
+                  child: const Text('Add to Cart'),
+                ),
+              ],
+            ),
+          );
+        }),
+      ],
     );
   }
 // @override
 // Widget buildSubtitle(BuildContext context) => const SizedBox.shrink();
 }
-
 // class MessageItem implements ListItem {
 //   final String sender;
 //   final String body;

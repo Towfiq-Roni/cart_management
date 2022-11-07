@@ -8,9 +8,8 @@
 import 'package:cart_management/list.dart';
 import 'package:flutter/widgets.dart';
 
-class CartProvider with ChangeNotifier{
+class CartProvider with ChangeNotifier {
   int _total = 0;
-  // int price = 0;
 
   List<HeadingItem> list = <HeadingItem>[];
 
@@ -18,22 +17,37 @@ class CartProvider with ChangeNotifier{
 
   int get getTotal => _total;
 
-  addToList(String product, int price){
-    list.add(HeadingItem(product, price));
+  bool _doesNotExist(id) {
+    return list.every((element) {
+      if(element.id == id){
+        element.quantity++;
+        return false;
+      }
+      return true;
+    });
+  }
+
+  addToList(String product, int price, int id) {
     // increment().value = total+price;
     _total += price;
+    if(_doesNotExist(id)){
+        list.add(HeadingItem(product, price, id, 1));
+    }
     notifyListeners();
-    print('Value increased $_total');
+    // print('Value increased $_total');
   }
 
-  deleteFromList(int index){
+  deleteFromList(int index) {
+    _total -= getList[index].price;
     list.removeAt(index);
     notifyListeners();
+    print('value decreased $_total');
   }
 
-  // increment(){
-  //   int value = total;
+  // increaseQuantity() {
+  //   _quantity++;
+  //   // int qnt = _quantity;
   //   notifyListeners();
-  //   print('Value incrememnt $value');
+  //   print('Value increment $_quantity');
   // }
 }

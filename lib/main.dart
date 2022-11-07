@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(MyApp(
       items: List<ListItem>.generate(
-    10, (index) => HeadingItem("Product ${index + 1}", index + 2),
+    10, (index) => HeadingItem("Product ${index + 1}", index + 2, index, 0),
     // MessageItem("Details $index")
   )));
 }
@@ -32,20 +32,19 @@ class MyApp extends StatelessWidget {
               appBar: AppBar(
                 title: const Text(title),
                 actions: <Widget>[
-                  Builder(
-                    builder: (context) {
-                      return IconButton(
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(
-                                    builder:(context) => const CartPage()));
-                          },
-                          icon: const Icon(
-                            Icons.shopping_cart,
-                            color: Colors.white,
-                          ));
-                    }
-                  )
+                  Builder(builder: (context) {
+                    return IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const CartPage()));
+                        },
+                        icon: const Icon(
+                          Icons.shopping_cart,
+                          color: Colors.white,
+                        ));
+                  })
                 ],
               ),
               body: ListView.builder(
