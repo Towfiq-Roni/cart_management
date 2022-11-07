@@ -36,14 +36,18 @@ class HeadingItem implements ListItem {
   Widget buildTitle(BuildContext context) {
     return Container(
       child: Row(
-        // mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Column(
             children: [
               Text(
-                '$product.$price',
+                '$product',
                 style: Theme.of(context).textTheme.headline5,
               ),
+              Text(
+                '$price',
+
+              )
             ],
           ),
           // SizedBox(width: 100),
@@ -58,7 +62,7 @@ class HeadingItem implements ListItem {
                           onPressed: () {
                             context.read<CartProvider>()
                                 .addToList(product, price);
-                            print('$CartProvider');
+                            print('$CartProvider initialized');
                             // Navigator.push(context,
                             //     MaterialPageRoute(builder: (context) => const CartPage(),
                                     // settings: RouteSettings(

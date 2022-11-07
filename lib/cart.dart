@@ -36,8 +36,8 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final getList = context.watch<CartProvider>();
-    print(getList.list);
+    final cart = context.watch<CartProvider>();
+    print(cart.getList);
     // final headingItem =
     // ModalRoute.of(context)!.settings.arguments as HeadingItem;
     return Scaffold(
@@ -49,30 +49,39 @@ class CartPage extends StatelessWidget {
         // Text('Product List'),
         Expanded(
           child: Container(
-              height: 1000,
-              width: 500,
-              child: ListView.builder(
-                  itemCount: <HeadingItem>[].length,
-                  itemBuilder: (context, index) {
-                    // final item = items[index];
-                    // return ListTile(
-                    //     // Text('$HeadingItem'),
-                    //   title: Text(<HeadingItem>[]),
-                    // ) ;
-                    return Container(
-                      child: Column(
-                        children: [
-                          Provider.value(
-                            value: getList,
-                              child: Text('${getList.list}')),
-                      ]),
-                    );
-                    //   ListTile(
-                    //
-                    //   // title: item.buildTitle(context),
-                    //   // subtitle: item.buildSubtitle(context),
-                    // );
-                  })),
+              // height: 1000,
+              // width: 500,
+              child: ListenableProvider.value(
+                value: cart,
+                child: ListView.builder(
+                    itemCount: Provider.of<CartProvider>(context).list.length,
+                    itemBuilder: (context, index) {
+                      // final item = items[index];
+                      // return ListTile(
+                      //     // Text('$HeadingItem'),
+                      //   title: Text(<HeadingItem>[]),
+                      // ) ;
+                      return Container(
+                        child: Column(
+                          children: [
+                            ListenableProvider.value(
+                              value: cart,
+                                child: Text(cart.getList[index].product.toString())),
+                            Text('Price = ${cart.getList[index].price}'),
+                        ]),
+                      );
+                      //   ListTile(
+                      //
+                      //   // title: item.buildTitle(context),
+                      //   // subtitle: item.buildSubtitle(context),
+                      // );
+                    }),
+              )),
+
+        ),
+        ListenableProvider.value(
+          value: cart,
+          child: Text('Total ${cart.getTotal}'),
         ),
       ],
     )
