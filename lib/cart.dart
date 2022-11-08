@@ -64,8 +64,7 @@ class CartPage extends StatelessWidget {
                             Text('Quantity: ${cart.getList[index].quantity}'),
                             ElevatedButton(
                                 onPressed: () {
-                                  context
-                                      .read<CartProvider>()
+                                  context.read<CartProvider>()
                                       .deleteFromList(index);
                                 },
                                 child: const Text('Remove from Cart'))

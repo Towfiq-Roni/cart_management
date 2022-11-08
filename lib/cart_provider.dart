@@ -19,7 +19,7 @@ class CartProvider with ChangeNotifier {
 
   bool _doesNotExist(id) {
     return list.every((element) {
-      if(element.id == id){
+      if (element.id == id) {
         element.quantity++;
         return false;
       }
@@ -30,24 +30,24 @@ class CartProvider with ChangeNotifier {
   addToList(String product, int price, int id) {
     // increment().value = total+price;
     _total += price;
-    if(_doesNotExist(id)){
-        list.add(HeadingItem(product, price, id, 1));
+    if (_doesNotExist(id)) {
+      list.add(HeadingItem(product, price, id, 1));
     }
     notifyListeners();
     // print('Value increased $_total');
   }
 
   deleteFromList(int index) {
-    _total -= getList[index].price;
+    _total -= getList[index].price*getList[index].quantity;
     list.removeAt(index);
     notifyListeners();
     print('value decreased $_total');
   }
 
-  // increaseQuantity() {
-  //   _quantity++;
-  //   // int qnt = _quantity;
-  //   notifyListeners();
-  //   print('Value increment $_quantity');
-  // }
+// increaseQuantity() {
+//   _quantity++;
+//   // int qnt = _quantity;
+//   notifyListeners();
+//   print('Value increment $_quantity');
+// }
 }
