@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart';
 
 class CartProvider with ChangeNotifier {
   int _total = 0;
+  int _count = 0;
 
   List<HeadingItem> list = <HeadingItem>[];
 
@@ -17,10 +18,22 @@ class CartProvider with ChangeNotifier {
 
   int get getTotal => _total;
 
+  int get getCount => _count;
+
   bool _doesNotExist(id) {
     return list.every((element) {
       if (element.id == id) {
         element.quantity++;
+        return false;
+      }
+      return true;
+    });
+  }
+
+  bool _doesExist(id) {
+    return list.every((element) {
+      if (element.id == id) {
+        element.quantity--;
         return false;
       }
       return true;
@@ -34,7 +47,7 @@ class CartProvider with ChangeNotifier {
       list.add(HeadingItem(product, price, id, 1));
     }
     notifyListeners();
-    // print('Value increased $_total');
+    print('Value increased $_total');
   }
 
   deleteFromList(int index) {
@@ -42,6 +55,20 @@ class CartProvider with ChangeNotifier {
     list.removeAt(index);
     notifyListeners();
     print('value decreased $_total');
+  }
+
+  // increaseSelectedItem(int index){
+  //   _count += getList[index].quantity;
+  //   notifyListeners();
+  // }
+  //
+  decreaseSelectedItem(String product, int price, int id){
+    _total -= price;
+    if(_doesExist(id)) {
+      list.remove(HeadingItem(product, price, id, 1));
+    }
+    notifyListeners();
+    print('Value decreased $_total');
   }
 
 // increaseQuantity() {

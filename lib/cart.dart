@@ -1,4 +1,5 @@
 import 'package:cart_management/cart_provider.dart';
+import 'package:cart_management/list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -31,8 +32,12 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cart = context.watch<CartProvider>();
-    print(cart.getList);
+    final cart = context.read<CartProvider>();
+    // final String product = context.read<CartProvider>();
+    // final int price = context.read<HeadingItem>().price;
+    // final int id = context.read<HeadingItem>().id;
+    // int quantity = context.read<HeadingItem>().quantity;
+    // print(cart.getList);
     // final headingItem =
     // ModalRoute.of(context)!.settings.arguments as HeadingItem;
     return Scaffold(
@@ -59,15 +64,55 @@ class CartPage extends StatelessWidget {
                             ListenableProvider.value(
                                 value: cart,
                                 child: Text(
-                                    cart.getList[index].product.toString())),
+                                    cart.getList[index].product.toString()
+                                )
+                            ),
                             Text('Price: ${cart.getList[index].price}'),
                             Text('Quantity: ${cart.getList[index].quantity}'),
-                            ElevatedButton(
-                                onPressed: () {
-                                  context.read<CartProvider>()
-                                      .deleteFromList(index);
-                                },
-                                child: const Text('Remove from Cart'))
+                            Row(
+                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                // Text('${cart.getList[].quantity}'),
+                                IconButton(
+                                  onPressed: (){
+                                    cart.decreaseSelectedItem(product, price, id);
+                                  },
+                                  icon: const Icon(Icons.remove),
+                                ),
+                                // Text('${cart.getList[quantity]}'),
+                                IconButton(
+                                  onPressed: (){
+                                    cart.addToList(product, price, id);
+                                  },
+                                  icon: const Icon(Icons.add),
+                                ),
+                                // ElevatedButton(
+                                //   onPressed: () {
+                                //     cart.addToList(product, price, id);
+                                //     // const AllButtons();
+                                //     // setState(() {
+                                //     //   IconButton( icon: Icon(Icons.minimize),
+                                //     //   onPressed: (){
+                                //     //     cart.addToList(product, price, id);
+                                //     //   },);
+                                //     //   TextEditingController qnt = TextEditingController();
+                                //     // });
+                                //     // cart.addToList(product, price, id);
+                                //     print('$CartProvider initialized');
+                                //     // if(cart.getList==cart.getList){
+                                //     //   Text('Quantity: ${cart.getQuantity}');
+                                //     // }
+                                //     // Navigator.push(context,
+                                //     //     MaterialPageRoute(builder: (context) => const CartPage(),
+                                //     // settings: RouteSettings(
+                                //     //   arguments: HeadingItem(product, price),
+                                //     // )
+                                //     // ))
+                                //   },
+                                //   child: const Text('Add to Cart'),
+                                // ),
+                              ],
+                            ),
                           ]);
                       //   ListTile(
                       //
@@ -79,7 +124,16 @@ class CartPage extends StatelessWidget {
             ),
             ListenableProvider.value(
               value: cart,
-              child: Text('Total ${cart.getTotal}'),
+              child: Container(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                      Text('Total ',),
+                      Text('${cart.getTotal}'),
+                  ],
+                ),
+              ),
             ),
           ],
         )
