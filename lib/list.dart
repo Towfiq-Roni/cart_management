@@ -68,7 +68,7 @@ class HeadingItem implements ListItem {
                 // Text('${cart.getList[].quantity}'),
                 IconButton(
                     onPressed: (){
-                      cart.decreaseSelectedItem(product, price, id);
+                      cart.decreaseSelectedItem(id);
                     },
                     icon: const Icon(Icons.remove),
                 ),
