@@ -66,19 +66,28 @@ class HeadingItem implements ListItem {
               // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 // Text('${cart.getList[].quantity}'),
-                IconButton(
-                    onPressed: (){
-                      cart.decreaseSelectedItem(id);
-                    },
-                    icon: const Icon(Icons.remove),
-                ),
-                // Text('${cart.getList[quantity]}'),
-                IconButton(
-                  onPressed: (){
+                // IconButton(
+                //     onPressed: (){
+                //       cart.decreaseSelectedItem(id);
+                //     },
+                //     icon: const Icon(Icons.remove),
+                // ),
+                // // Text('${cart.getList[quantity]}'),
+                // IconButton(
+                //   onPressed: (){
+                //     cart.addToList(product, price, id);
+                //   },
+                //   icon: const Icon(Icons.add),
+                // ),
+                ElevatedButton(
+                  onPressed: () {
                     cart.addToList(product, price, id);
+                    var snackBar =
+                        SnackBar(content: Text('$product added to cart'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
-                  icon: const Icon(Icons.add),
-                ),
+                  child: const Text('Add To Cart'),
+                )
                 // ElevatedButton(
                 //   onPressed: () {
                 //     cart.addToList(product, price, id);

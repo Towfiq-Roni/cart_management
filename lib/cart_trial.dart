@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cart_management/button.dart';
 import 'package:cart_management/cart_provider.dart';
 import 'package:flutter/material.dart';
@@ -156,16 +158,19 @@ class CartTrialPage extends StatelessWidget {
   // final int id;
   // int quantity;
 
-  const CartTrialPage({
+  CartTrialPage({
     Key? key,
     // required this.product, required this.price, required this.id,
     // required this.quantity,
     // required this.items
   }) : super(key: key);
+  // final TextEditingController _quantityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final cart = context.read<CartProvider>();
+    // int inputTotal;
+    // int inputTotal = 0;
     // final hItem = HeadingItem(product, price, id, quantity);
     // final String product = context.read<CartProvider>();
     // final int price = context.read<HeadingItem>().price;
@@ -182,6 +187,7 @@ class CartTrialPage extends StatelessWidget {
           children: <Widget>[
             // Text('Product List'),
             Expanded(
+              flex: 1,
               child: ListenableProvider.value(
                 value: cart,
                 child: ListView.builder(
@@ -200,11 +206,12 @@ class CartTrialPage extends StatelessWidget {
                                 child: Text(
                                     cart.getList[index].product.toString())),
                             Text('Price: ${cart.getList[index].price}'),
-                            Text('Quantity: ${cart.getList[index].quantity}'),
+                            // Text('Quantity: ${cart.getList[index].quantity}'),
                             Builder(builder: (context) {
                               return Row(
-                                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
                                   // Text('${cart.getList[].quantity}'),
                                   IconButton(
                                     onPressed: () {
@@ -214,13 +221,41 @@ class CartTrialPage extends StatelessWidget {
                                     },
                                     icon: const Icon(Icons.remove),
                                   ),
-                                  // Text('${cart.getList[quantity]}'),
+                                  SizedBox(
+                                    height: 20,
+                                    width: 40,
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        border: const UnderlineInputBorder(),
+                                        hintText:
+                                            // '${cart.qty}',
+                                        '${cart.getList[index].quantity}',
+                                      ),
+                                      onChanged: (value) {
+                                        // cart.setQuantity(value, cart.getList[index].price);
+                                        cart.totalTextValue(value, index, cart.getList[index].price);
+                                        cart.getList[index].quantity = cart.qty;
+                                        Text('${cart.qty}');
+                                            // cart.getList[index].price;
+                                        // inputTotal = cart.addToList(
+                                        //     cart.getList[index].product,
+                                        //     cart.getList[index].price,
+                                        //     index);
+                                        // cart.getTotal;
+                                        // inputTotal = int.parse(stdin.{hintText*cart.getList[index].price});
+                                        print(value);
+                                      },
+                                      keyboardType: TextInputType.number,
+                                      textAlign: TextAlign.center,
+                                      textInputAction: TextInputAction.done,
+                                    ),
+                                  ),
                                   IconButton(
                                     onPressed: () {
                                       cart.addToList(
                                           cart.getList[index].product,
                                           cart.getList[index].price,
-                                         index);
+                                          index);
                                     },
                                     icon: const Icon(Icons.add),
                                   ),
@@ -261,24 +296,22 @@ class CartTrialPage extends StatelessWidget {
                     }),
               ),
             ),
-            ListenableProvider.value(
-              value: cart,
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Total ',
-                    ),
-                    Text('${cart.getTotal}'),
-                  ],
-                ),
+            Container(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Total ',
+                  ),
+                  Text('${cart.getTotal
+                      // +inputTotal
+                      }'),
+                ],
               ),
             ),
           ],
         )
-
         //     body: ListView(
         //       children: [
         //
@@ -291,6 +324,13 @@ class CartTrialPage extends StatelessWidget {
         // )
         );
   }
+//
+// @override
+// void dispose() {
+//   _quantityController.dispose();
+//   super.dispose();
+// }
+
 // Widget CartList() {
 //   if (HeadingItem != 0) {
 //     return ListView.builder(

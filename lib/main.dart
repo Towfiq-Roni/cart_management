@@ -8,8 +8,7 @@ import 'cart_trial.dart';
 
 void main() {
   runApp(MyApp(
-      items:
-      List<ListItem>.generate(
+      items: List<ListItem>.generate(
     10, (index) => HeadingItem("Product ${index + 1}", index + 2, index, 0),
     // MessageItem("Details $index")
   )));
@@ -42,7 +41,7 @@ class MyApp extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const CartTrialPage()));
+                                  builder: (context) => CartTrialPage()));
                         },
                         icon: const Icon(
                           Icons.shopping_cart,
