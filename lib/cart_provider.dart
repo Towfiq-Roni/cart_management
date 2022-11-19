@@ -19,7 +19,7 @@ class CartProvider with ChangeNotifier {
 
   int get getTotal => _total;
   int get getTotalPrice => _totalPrice;
-  int get qty => _qty;
+  int get getQty => _qty;
 
   // int get getCount => _count;
 
@@ -83,7 +83,7 @@ class CartProvider with ChangeNotifier {
   //   _count += getList[index].quantity;
   //   notifyListeners();
   // }
-  //
+
   decreaseSelectedItem(int index) {
     // _total -= headingItem.price;
     // if(list.contains(index)){
@@ -105,7 +105,7 @@ class CartProvider with ChangeNotifier {
     print('Value decreased $_total');
   }
 
-  totalTextValue(String qty, int index, int price){
+  totalTextValue(String qty, int index){
     // getList[index].quantity++;
     _qty = int.parse(qty);
     // _qty = getList[index].quantity;

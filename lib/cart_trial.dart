@@ -228,14 +228,14 @@ class CartTrialPage extends StatelessWidget {
                                       decoration: InputDecoration(
                                         border: const UnderlineInputBorder(),
                                         hintText:
-                                            // '${cart.qty}',
-                                        '${cart.getList[index].quantity}',
+                                            '${cart.getQty}',
+                                        // '${cart.getList[index].quantity}',
                                       ),
                                       onChanged: (value) {
                                         // cart.setQuantity(value, cart.getList[index].price);
-                                        cart.totalTextValue(value, index, cart.getList[index].price);
-                                        cart.getList[index].quantity = cart.qty;
-                                        Text('${cart.qty}');
+                                        cart.totalTextValue(value, index);
+                                        // cart.getList[index].quantity = cart.getQty;
+                                        Text('${cart.getList[index].quantity}');
                                             // cart.getList[index].price;
                                         // inputTotal = cart.addToList(
                                         //     cart.getList[index].product,
