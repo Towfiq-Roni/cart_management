@@ -25,9 +25,9 @@ class CartProvider with ChangeNotifier {
 
   // int get getQuantity => ;
 
-  bool _doesNotExist(id) {
+  bool _doesNotExist(productID) {
     return list.every((element) {
-      if (element.id == id) {
+      if (element.id == productID) {
         element.quantity++;
         return false;
       }
@@ -53,11 +53,11 @@ class CartProvider with ChangeNotifier {
   //   // return list[id]
   // }
 
-  addToList(String product, int price, int id) {
+  addToList(String product, int price, int productID) {
     // increment().value = total+price;
     _total += price;
-    if (_doesNotExist(id)) {
-      list.add(HeadingItem(product, price, id, 1));
+    if (_doesNotExist(productID)) {
+      list.add(HeadingItem(product, price, productID, 1));
     }
     notifyListeners();
     print('Value increased $_total');
@@ -84,17 +84,17 @@ class CartProvider with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  decreaseSelectedItem(int index) {
+  decreaseSelectedItem(int productID) {
     // _total -= headingItem.price;
     // if(list.contains(index)){
     //
     // }
     for (HeadingItem item in list) {
-      if (item.id == getList[index].id) {
-        _total -= getList[index].price;
+      if (item.id == getList[productID].id) {
+        _total -= getList[productID].price;
         item.quantity--;
         if (item.quantity == 0) {
-          list.removeAt(index);
+          list.removeAt(productID);
         }
         // else if(item.quantity == ){
         //
@@ -105,14 +105,23 @@ class CartProvider with ChangeNotifier {
     print('Value decreased $_total');
   }
 
-  totalTextValue(String qty, int index){
+  totalTextValue(String qty, int productID, int price){
     // getList[index].quantity++;
     _qty = int.parse(qty);
     // _qty = getList[index].quantity;
-    _total = _qty*getList[index].price;
-    // _total += price;
+    // _total = _qty*getList[index].price;
+    _totalPrice = _qty*price;
+    _total += getTotalPrice - getList[productID].price;
+    // _total += _totalPrice;
+    getList[productID].quantity = getQty;
     notifyListeners();
   }
+
+  // totalPrice(int productID){
+  //   _total += getTotalPrice - getList[productID].price;
+  //   notifyListeners();
+  // }
+
 // list.forEach((HeadingItem){
 //   _total -= getList[index].price*getList[index].quantity;
 // list.removeAt;

@@ -52,8 +52,8 @@ class MyApp extends StatelessWidget {
               ),
               body: ListView.builder(
                   itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    final item = items[index];
+                  itemBuilder: (context, productID) {
+                    final item = items[productID];
                     return ListTile(
                       title: item.buildTitle(context),
                       // subtitle: item.buildSubtitle(context),

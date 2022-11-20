@@ -158,7 +158,7 @@ class CartTrialPage extends StatelessWidget {
   // final int id;
   // int quantity;
 
-  CartTrialPage({
+  const CartTrialPage({
     Key? key,
     // required this.product, required this.price, required this.id,
     // required this.quantity,
@@ -192,7 +192,7 @@ class CartTrialPage extends StatelessWidget {
                 value: cart,
                 child: ListView.builder(
                     itemCount: Provider.of<CartProvider>(context).list.length,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (context, productID) {
                       // final item = items[index];
                       // return ListTile(
                       //     // Text('$HeadingItem'),
@@ -204,8 +204,8 @@ class CartTrialPage extends StatelessWidget {
                             ListenableProvider.value(
                                 value: cart,
                                 child: Text(
-                                    cart.getList[index].product.toString())),
-                            Text('Price: ${cart.getList[index].price}'),
+                                    cart.getList[productID].product.toString())),
+                            Text('Price: ${cart.getList[productID].price}'),
                             // Text('Quantity: ${cart.getList[index].quantity}'),
                             Builder(builder: (context) {
                               return Row(
@@ -216,7 +216,7 @@ class CartTrialPage extends StatelessWidget {
                                   IconButton(
                                     onPressed: () {
                                       cart.decreaseSelectedItem(
-                                        index,
+                                        productID,
                                       );
                                     },
                                     icon: const Icon(Icons.remove),
@@ -228,14 +228,18 @@ class CartTrialPage extends StatelessWidget {
                                       decoration: InputDecoration(
                                         border: const UnderlineInputBorder(),
                                         hintText:
-                                            '${cart.getQty}',
-                                        // '${cart.getList[index].quantity}',
+                                            // '${cart.getQty}',
+                                        '${cart.getList[productID].quantity}',
                                       ),
                                       onChanged: (value) {
                                         // cart.setQuantity(value, cart.getList[index].price);
-                                        cart.totalTextValue(value, index);
+                                        cart.totalTextValue(value, productID, cart.getList[productID].price);
+
+                                        // cart.totalPrice(productID);
                                         // cart.getList[index].quantity = cart.getQty;
-                                        Text('${cart.getList[index].quantity}');
+
+                                        Text('${cart.getQty}');
+
                                             // cart.getList[index].price;
                                         // inputTotal = cart.addToList(
                                         //     cart.getList[index].product,
@@ -243,6 +247,7 @@ class CartTrialPage extends StatelessWidget {
                                         //     index);
                                         // cart.getTotal;
                                         // inputTotal = int.parse(stdin.{hintText*cart.getList[index].price});
+
                                         print(value);
                                       },
                                       keyboardType: TextInputType.number,
@@ -253,9 +258,9 @@ class CartTrialPage extends StatelessWidget {
                                   IconButton(
                                     onPressed: () {
                                       cart.addToList(
-                                          cart.getList[index].product,
-                                          cart.getList[index].price,
-                                          index);
+                                          cart.getList[productID].product,
+                                          cart.getList[productID].price,
+                                          productID);
                                     },
                                     icon: const Icon(Icons.add),
                                   ),
