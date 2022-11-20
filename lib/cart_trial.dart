@@ -192,7 +192,7 @@ class CartTrialPage extends StatelessWidget {
                 value: cart,
                 child: ListView.builder(
                     itemCount: Provider.of<CartProvider>(context).list.length,
-                    itemBuilder: (context, productID) {
+                    itemBuilder: (context, index) {
                       // final item = items[index];
                       // return ListTile(
                       //     // Text('$HeadingItem'),
@@ -204,8 +204,8 @@ class CartTrialPage extends StatelessWidget {
                             ListenableProvider.value(
                                 value: cart,
                                 child: Text(
-                                    cart.getList[productID].product.toString())),
-                            Text('Price: ${cart.getList[productID].price}'),
+                                    cart.getList[index].product.toString())),
+                            Text('Price: ${cart.getList[index].price}'),
                             // Text('Quantity: ${cart.getList[index].quantity}'),
                             Builder(builder: (context) {
                               return Row(
@@ -215,8 +215,8 @@ class CartTrialPage extends StatelessWidget {
                                   // Text('${cart.getList[].quantity}'),
                                   IconButton(
                                     onPressed: () {
-                                      cart.decreaseSelectedItem(
-                                        productID,
+                                      cart.decreaseSelectedItemCart(
+                                        index,
                                       );
                                     },
                                     icon: const Icon(Icons.remove),
@@ -229,11 +229,13 @@ class CartTrialPage extends StatelessWidget {
                                         border: const UnderlineInputBorder(),
                                         hintText:
                                             // '${cart.getQty}',
-                                        '${cart.getList[productID].quantity}',
+                                        '${cart.getList[index].quantity}',
                                       ),
                                       onChanged: (value) {
                                         // cart.setQuantity(value, cart.getList[index].price);
-                                        cart.totalTextValue(value, productID, cart.getList[productID].price);
+                                        cart.totalTextValue(value,
+                                            cart.getList[index].id,
+                                            cart.getList[index].price);
 
                                         // cart.totalPrice(productID);
                                         // cart.getList[index].quantity = cart.getQty;
@@ -257,10 +259,10 @@ class CartTrialPage extends StatelessWidget {
                                   ),
                                   IconButton(
                                     onPressed: () {
-                                      cart.addToList(
-                                          cart.getList[productID].product,
-                                          cart.getList[productID].price,
-                                          productID);
+                                      cart.addToListCart(
+                                          cart.getList[index].product,
+                                          cart.getList[index].price,
+                                          index);
                                     },
                                     icon: const Icon(Icons.add),
                                   ),
