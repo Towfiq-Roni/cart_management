@@ -7,17 +7,19 @@ import 'package:provider/provider.dart';
 import 'cart_trial.dart';
 
 void main() {
-  runApp(MyApp(
-      items: List<ListItem>.generate(
-    10, (index) => HeadingItem("Product ${index + 1}", index + 2, index, 0),
-    // MessageItem("Details $index")
-  )));
+  runApp(const MyApp(
+    //   items: List<ListItem>.generate(
+    // 10, (index) => HeadingItem("Product ${index + 1}", index + 2, index, 0),
+    // MessageItem("Details $index"))
+      ));
 }
 
 class MyApp extends StatelessWidget {
-  final List<ListItem> items;
+  // final List<ListItem> items;
 
-  const MyApp({super.key, required this.items});
+  const MyApp({super.key,
+    // required this.items
+  });
 
   // This widget is the root of your application.
   @override
@@ -51,14 +53,41 @@ class MyApp extends StatelessWidget {
                 ],
               ),
               body: ListView.builder(
-                  itemCount: items.length,
+                  // itemCount: items.length,
                   itemBuilder: (context, productID) {
-                    final item = items[productID];
+                    // final item = items[productID];
                     return ListTile(
-                      title: item.buildTitle(context),
+                      // title: item.buildTitle(context),
                       // subtitle: item.buildSubtitle(context),
                     );
                   }))),
     );
   }
 }
+
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  List<Product> _products = List<Product>();
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+
+    );
+  }
+
+  void _productList (){
+    var list = <Product> [
+      Product(
+        name: Product 1,
+        id:
+      ),
+    ]
+  }
+}
+

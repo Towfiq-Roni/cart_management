@@ -4,6 +4,7 @@
 //   final List<Item> _items = [];
 //
 // }
+
 import 'package:cart_management/list.dart';
 import 'package:flutter/widgets.dart';
 
@@ -25,9 +26,9 @@ class CartProvider with ChangeNotifier {
 
   // int get getQuantity => ;
 
-  bool _doesNotExist(index) {
+  bool _doesNotExist(pListIndex) {
     return list.every((element) {
-      if (element.id == index) {
+      if (element.id == pListIndex) {
         element.quantity++;
         return false;
       }
@@ -53,23 +54,26 @@ class CartProvider with ChangeNotifier {
   //   // return list[id]
   // }
 
-  addToList(String product, int price, int index) {
+  addToList(String product, int price, int pListIndex) {
     // increment().value = total+price;
     _total += price;
-    if (_doesNotExist(index)) {
-      list.add(HeadingItem(product, price, index, 1));
+    if (_doesNotExist(pListIndex)) {
+      list.add(HeadingItem(product, price, pListIndex, 1));
     }
     notifyListeners();
     print('Value increased $_total');
   }
 
-  addToListCart(String product, int price, int index) {
+  addToListCart(String product, int price, int cListIndex) {
     // increment().value = total+price;
+    // cListIndex = getList[cListIndex].id;
     _total += price;
-    getList[index].quantity++;
-    getList[index].quantity = getQty;
+    getList[cListIndex].quantity++;
+    // getList[cListIndex].quantity = getQty;
+    _qty = getList[cListIndex].quantity;
     notifyListeners();
     print('Value increased $_total');
+    print('Quantity increased $getQty');
   }
 
   // setQuantity(String qty, int price){
@@ -93,17 +97,18 @@ class CartProvider with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  decreaseSelectedItemCart(int index) {
+  decreaseSelectedItemCart(int cListIndex) {
     // _total -= headingItem.price;
     // if(list.contains(index)){
     //
     // }
     for (HeadingItem item in list) {
-      if (item.id == getList[index].id) {
-        _total -= getList[index].price;
-        item.quantity--;
+      if (item.id == getList[cListIndex].id) {
+        _total -= getList[cListIndex].price;
+        getList[cListIndex].quantity--;
+        _qty = getList[cListIndex].quantity;
         if (item.quantity == 0) {
-          list.removeAt(index);
+          list.removeAt(cListIndex);
         }
       if (list.isEmpty){
           _total = 0;
@@ -115,19 +120,21 @@ class CartProvider with ChangeNotifier {
       notifyListeners();
     }
     print('Value decreased $_total');
+    print('Quantity decreased $getQty');
   }
 
-  totalTextValue(String qty, int index, int price){
+  totalTextValue(String qty, int cListIndex, int price){
     // getList[index].quantity++;
     _qty = int.parse(qty);
     // _qty = getList[index].quantity;
     // _total = _qty*getList[index].price;
     _totalPrice = _qty*price;
-    _total += getTotalPrice - getList[index].price;
+    _total += getTotalPrice - getList[cListIndex].price;
     // _total += _totalPrice;
-    getList[index].quantity = getQty;
+    getList[cListIndex].quantity = _qty;
     notifyListeners();
-    print('value increased $_total');
+    print('Value after input $_total');
+    print('Quantity after input $getQty');
   }
 
   // totalPrice(int productID){
@@ -144,7 +151,9 @@ class CartProvider with ChangeNotifier {
 //     headingItem.product, headingItem.price, headingItem.id, 1));
 // notifyListeners();
 // print('Value decreased $_total');
+
 }
+
 // notifyListeners();
 //   print('Value decreased $_total');
 

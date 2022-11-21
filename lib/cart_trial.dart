@@ -164,11 +164,14 @@ class CartTrialPage extends StatelessWidget {
     // required this.quantity,
     // required this.items
   }) : super(key: key);
+
   // final TextEditingController _quantityController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final cart = context.read<CartProvider>();
+    // String textInput = '${cart.getQty}';
+
     // int inputTotal;
     // int inputTotal = 0;
     // final hItem = HeadingItem(product, price, id, quantity);
@@ -215,9 +218,7 @@ class CartTrialPage extends StatelessWidget {
                                   // Text('${cart.getList[].quantity}'),
                                   IconButton(
                                     onPressed: () {
-                                      cart.decreaseSelectedItemCart(
-                                        index,
-                                      );
+                                      cart.decreaseSelectedItemCart(index);
                                     },
                                     icon: const Icon(Icons.remove),
                                   ),
@@ -233,16 +234,21 @@ class CartTrialPage extends StatelessWidget {
                                       ),
                                       onChanged: (value) {
                                         // cart.setQuantity(value, cart.getList[index].price);
-                                        cart.totalTextValue(value,
+                                        cart.totalTextValue(
+                                            value,
                                             cart.getList[index].id,
                                             cart.getList[index].price);
 
                                         // cart.totalPrice(productID);
                                         // cart.getList[index].quantity = cart.getQty;
 
-                                        Text('${cart.getQty}');
+                                        // textInput = value;
+                                        // value = "${cart.getQty}";
+                                        // Text ('${cart.getQty}');
 
-                                            // cart.getList[index].price;
+                                        // Text('${cart.getQty}');
+
+                                        // cart.getList[index].price;
                                         // inputTotal = cart.addToList(
                                         //     cart.getList[index].product,
                                         //     cart.getList[index].price,
@@ -250,7 +256,7 @@ class CartTrialPage extends StatelessWidget {
                                         // cart.getTotal;
                                         // inputTotal = int.parse(stdin.{hintText*cart.getList[index].price});
 
-                                        print(value);
+                                        print('Text Value Entered $value');
                                       },
                                       keyboardType: TextInputType.number,
                                       textAlign: TextAlign.center,
@@ -308,9 +314,8 @@ class CartTrialPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Total ',
-                  ),
+                  Text('For Test = ${cart.getQty}'),
+                  const Text('Total '),
                   Text('${cart.getTotal
                       // +inputTotal
                       }'),
